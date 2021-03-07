@@ -8,6 +8,7 @@ export const light = {
     blueTwitter: "#2aa9e0",
   },
 
+  background: "#f2f3f5",
   title: "#2e384d",
   text: "#666",
   textHighlight: "#b3b9ff",
