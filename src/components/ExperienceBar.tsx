@@ -1,4 +1,4 @@
-import styled from "styled-components/macro"
+import styled, { css } from "styled-components/macro"
 
 interface ExperienceBarProps {}
 
@@ -26,23 +26,27 @@ const StyledExperienceBar = styled.header`
 `
 
 const Bar = styled.div`
-  position: relative;
+  ${({ theme }) => css`
+    position: relative;
 
-  flex: 1;
+    flex: 1;
 
-  margin: 0 1.5rem;
-  height: 4px;
+    margin: 0 1.5rem;
+    height: 4px;
 
-  border-radius: 4px;
-  background: var(--gray-line);
+    border-radius: 4px;
+    background: ${theme.grayLine};
+  `}
 `
 
 const BarProgress = styled.div`
-  width: 50%;
-  height: 4px;
+  ${({ theme }) => css`
+    width: 50%;
+    height: 4px;
 
-  border-radius: 4px;
-  background: var(--green);
+    border-radius: 4px;
+    background: ${theme.colors.green};
+  `}
 `
 
 const CurrentExperience = styled.span`
