@@ -1,13 +1,16 @@
 import { ThemeProvider } from "styled-components"
+import { ChallengesProvider } from "../contexts/ChallengesContext"
 import { GlobalStyle } from "../styles/global"
 import { light } from "../styles/theme"
 
 function MyApp({ Component, pageProps }) {
   return (
-    <ThemeProvider theme={light}>
-      <GlobalStyle />
-      <Component {...pageProps} />
-    </ThemeProvider>
+    <ChallengesProvider>
+      <ThemeProvider theme={light}>
+        <GlobalStyle />
+        <Component {...pageProps} />
+      </ThemeProvider>
+    </ChallengesProvider>
   )
 }
 
