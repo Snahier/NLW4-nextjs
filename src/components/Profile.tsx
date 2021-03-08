@@ -1,8 +1,12 @@
+import { useContext } from "react"
 import styled, { css } from "styled-components/macro"
+import { ChallengesContext } from "../contexts/ChallengesContext"
 
 interface ProfileProps {}
 
 export const Profile: React.FC<ProfileProps> = ({ ...props }) => {
+  const { level } = useContext(ChallengesContext)
+
   return (
     <StyledProfile {...props}>
       <UserImage src="https://github.com/snahier.png" alt="Snahier" />
@@ -10,7 +14,7 @@ export const Profile: React.FC<ProfileProps> = ({ ...props }) => {
         <strong>Snahier</strong>
         <p>
           <LevelIcon src="icons/level.svg" alt="Level" />
-          Level 1
+          Level {level}
         </p>
       </Details>
     </StyledProfile>
