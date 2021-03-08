@@ -16,5 +16,6 @@ export const light = {
 
   fonts: {
     inter: "Inter",
+    rajdhani: "Rajdhani",
   },
 }
