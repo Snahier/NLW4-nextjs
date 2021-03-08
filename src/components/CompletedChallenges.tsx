@@ -1,14 +1,18 @@
+import { useContext } from "react"
 import styled from "styled-components/macro"
+import { ChallengesContext } from "../contexts/ChallengesContext"
 
 interface CompletedChallengesProps {}
 
 export const CompletedChallenges: React.FC<CompletedChallengesProps> = ({
   ...props
 }) => {
+  const { challengesCompleted } = useContext(ChallengesContext)
+
   return (
     <StyledCompletedChallenges {...props}>
       <Label>Desafios completos</Label>
-      <Amount>5</Amount>
+      <Amount>{challengesCompleted}</Amount>
     </StyledCompletedChallenges>
   )
 }
