@@ -7,8 +7,9 @@ let countdownTimeout: NodeJS.Timeout
 interface CountdownProps {}
 
 export const Countdown: React.FC<CountdownProps> = ({ ...props }) => {
-  const [time, setTime] = useState(25 * 60)
+  const [time, setTime] = useState(0.05 * 60)
   const [isActive, setIsActive] = useState(false)
+  const [hasFinished, setHasFinished] = useState(false)
 
   const minutes = Math.floor(time / 60)
   const seconds = time % 60
@@ -20,7 +21,7 @@ export const Countdown: React.FC<CountdownProps> = ({ ...props }) => {
   const resetCountdown = () => {
     clearTimeout(countdownTimeout)
     setIsActive(false)
-    setTime(25 * 60)
+    setTime(0.05 * 60)
   }
 
   useEffect(() => {
@@ -28,6 +29,9 @@ export const Countdown: React.FC<CountdownProps> = ({ ...props }) => {
       countdownTimeout = setTimeout(() => {
         setTime(time - 1)
       }, 1000)
+    } else if (isActive && time === 0) {
+      setHasFinished(true)
+      setIsActive(false)
     }
   }, [isActive, time])
 
@@ -51,7 +55,9 @@ export const Countdown: React.FC<CountdownProps> = ({ ...props }) => {
         </TimeWrapper>
       </StyledCountdown>
 
-      {isActive ? (
+      {hasFinished ? (
+        <CountdownButton disabled>Ciclo encerrado</CountdownButton>
+      ) : isActive ? (
         <CountdownButton onClick={resetCountdown} active>
           Abandonar ciclo
         </CountdownButton>
@@ -134,7 +140,14 @@ const CountdownButton = styled.button<CountdownButtonProps>`
     font-size: 1.25rem;
     font-weight: 600;
 
-    &:hover {
+    &:disabled {
+      cursor: not-allowed;
+      background: ${theme.colors.white};
+
+      color: ${theme.text};
+    }
+
+    &:not(:disabled):hover {
       background: ${theme.colors.blueDark};
     }
 
