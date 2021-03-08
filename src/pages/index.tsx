@@ -1,4 +1,5 @@
 import styled from "styled-components/macro"
+import { CompletedChallenges } from "../components/CompletedChallenges"
 import { ExperienceBar } from "../components/ExperienceBar"
 import { Profile } from "../components/Profile"
 
@@ -10,6 +11,7 @@ export default function Home() {
       <Section>
         <div>
           <Profile />
+          <CompletedChallenges />
         </div>
         <div></div>
       </Section>
