@@ -2,6 +2,8 @@ import Head from "next/head"
 import { useEffect, useState } from "react"
 import styled, { css } from "styled-components/macro"
 
+let countdownTimeout: NodeJS.Timeout
+
 interface CountdownProps {}
 
 export const Countdown: React.FC<CountdownProps> = ({ ...props }) => {
@@ -15,10 +17,14 @@ export const Countdown: React.FC<CountdownProps> = ({ ...props }) => {
   const [secondLeft, secondRight] = String(seconds).padStart(2, "0").split("")
 
   const startCountdown = () => setIsActive(true)
+  const resetCountdown = () => {
+    clearTimeout(countdownTimeout)
+    setIsActive(false)
+  }
 
   useEffect(() => {
     if (isActive && time > 0) {
-      setTimeout(() => {
+      countdownTimeout = setTimeout(() => {
         setTime(time - 1)
       }, 1000)
     }
@@ -45,7 +51,7 @@ export const Countdown: React.FC<CountdownProps> = ({ ...props }) => {
       </StyledCountdown>
 
       {isActive ? (
-        <CountdownButton onClick={startCountdown} active>
+        <CountdownButton onClick={resetCountdown} active>
           Abandonar ciclo
         </CountdownButton>
       ) : (
