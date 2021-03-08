@@ -50,6 +50,7 @@ export const CountdownProvider = ({ children }: CountdownContextProps) => {
       setHasFinished(true)
       setIsActive(false)
       startNewChallenge()
+      setHasFinished(false)
     }
   }, [isActive, time])
 
