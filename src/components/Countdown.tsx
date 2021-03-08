@@ -20,6 +20,7 @@ export const Countdown: React.FC<CountdownProps> = ({ ...props }) => {
   const resetCountdown = () => {
     clearTimeout(countdownTimeout)
     setIsActive(false)
+    setTime(25 * 60)
   }
 
   useEffect(() => {
