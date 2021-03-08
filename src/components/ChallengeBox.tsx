@@ -5,7 +5,7 @@ import { ChallengesContext } from "../contexts/ChallengesContext"
 interface ChallengeBoxProps {}
 
 export const ChallengeBox: React.FC<ChallengeBoxProps> = ({ ...props }) => {
-  const { activeChallenge } = useContext(ChallengesContext)
+  const { activeChallenge, resetChallenge } = useContext(ChallengesContext)
 
   return (
     <StyledChallengeBox {...props}>
@@ -20,7 +20,9 @@ export const ChallengeBox: React.FC<ChallengeBoxProps> = ({ ...props }) => {
           </main>
 
           <footer>
-            <ChallengeFailedButton>Falhei</ChallengeFailedButton>
+            <ChallengeFailedButton onClick={resetChallenge}>
+              Falhei
+            </ChallengeFailedButton>
             <ChallengeCompleteButton>Completei</ChallengeCompleteButton>
           </footer>
         </ChallengeActive>
