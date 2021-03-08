@@ -6,7 +6,7 @@ interface CountdownProps {}
 
 export const Countdown: React.FC<CountdownProps> = ({ ...props }) => {
   const [time, setTime] = useState(25 * 60)
-  const [active, setActive] = useState(false)
+  const [isActive, setIsActive] = useState(false)
 
   const minutes = Math.floor(time / 60)
   const seconds = time % 60
@@ -14,15 +14,15 @@ export const Countdown: React.FC<CountdownProps> = ({ ...props }) => {
   const [minuteLeft, minuteRight] = String(minutes).padStart(2, "0").split("")
   const [secondLeft, secondRight] = String(seconds).padStart(2, "0").split("")
 
-  const startCountdown = () => setActive(true)
+  const startCountdown = () => setIsActive(true)
 
   useEffect(() => {
-    if (active && time > 0) {
+    if (isActive && time > 0) {
       setTimeout(() => {
         setTime(time - 1)
       }, 1000)
     }
-  }, [active, time])
+  }, [isActive, time])
 
   return (
     <div>
@@ -44,9 +44,15 @@ export const Countdown: React.FC<CountdownProps> = ({ ...props }) => {
         </TimeWrapper>
       </StyledCountdown>
 
-      <CountdownButton onClick={startCountdown}>
-        Iniciar um ciclo
-      </CountdownButton>
+      {isActive ? (
+        <CountdownButton onClick={startCountdown} active>
+          Abandonar ciclo
+        </CountdownButton>
+      ) : (
+        <CountdownButton onClick={startCountdown}>
+          Iniciar um ciclo
+        </CountdownButton>
+      )}
     </div>
   )
 }
@@ -98,8 +104,11 @@ const TimeDigit = styled.span`
   flex: 1;
 `
 
-const CountdownButton = styled.button`
-  ${({ theme }) => css`
+type CountdownButtonProps = {
+  active?: boolean
+}
+const CountdownButton = styled.button<CountdownButtonProps>`
+  ${({ theme, active }) => css`
     display: flex;
     align-items: center;
     justify-content: center;
@@ -121,5 +130,18 @@ const CountdownButton = styled.button`
     &:hover {
       background: ${theme.colors.blueDark};
     }
+
+    ${active &&
+    css`
+      background: ${theme.colors.white};
+
+      color: ${theme.title};
+
+      &:hover {
+        background: ${theme.colors.red};
+
+        color: ${theme.colors.white};
+      }
+    `}
   `}
 `
