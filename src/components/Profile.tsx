@@ -8,7 +8,10 @@ export const Profile: React.FC<ProfileProps> = ({ ...props }) => {
       <UserImage src="https://github.com/snahier.png" alt="Snahier" />
       <Details>
         <strong>Snahier</strong>
-        <p>Level 1</p>
+        <p>
+          <LevelIcon src="icons/level.svg" alt="Level" />
+          Level 1
+        </p>
       </Details>
     </StyledProfile>
   )
@@ -40,4 +43,8 @@ const Details = styled.div`
       margin-top: 0.5rem;
     }
   `}
+`
+
+const LevelIcon = styled.img`
+  margin-right: 0.5rem;
 `
