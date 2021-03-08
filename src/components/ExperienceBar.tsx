@@ -1,17 +1,28 @@
+import { useContext } from "react"
 import styled, { css } from "styled-components/macro"
+import { ChallengesContext } from "../contexts/ChallengesContext"
 
 interface ExperienceBarProps {}
 
 export const ExperienceBar: React.FC<ExperienceBarProps> = ({ ...props }) => {
+  const { currentExperience, experienceToNextLevel } = useContext(
+    ChallengesContext
+  )
+
+  const percentToNextLevel =
+    Math.round(currentExperience * 100) / experienceToNextLevel
+
   return (
     <StyledExperienceBar {...props}>
       <span>0 xp</span>
       <Bar>
-        <BarProgress />
+        <BarProgress percent={percentToNextLevel} />
 
-        <CurrentExperience>300 xp</CurrentExperience>
+        <CurrentExperience percent={percentToNextLevel}>
+          {currentExperience} xp
+        </CurrentExperience>
       </Bar>
-      <span>600 xp</span>
+      <span>{experienceToNextLevel} xp</span>
     </StyledExperienceBar>
   )
 }
@@ -39,9 +50,13 @@ const Bar = styled.div`
   `}
 `
 
-const BarProgress = styled.div`
-  ${({ theme }) => css`
-    width: 50%;
+type CurrentExperienceProps = {
+  percent: number
+}
+
+const BarProgress = styled.div<CurrentExperienceProps>`
+  ${({ theme, percent }) => css`
+    width: ${percent}%;
     height: 4px;
 
     border-radius: 4px;
@@ -49,9 +64,11 @@ const BarProgress = styled.div`
   `}
 `
 
-const CurrentExperience = styled.span`
-  position: absolute;
-  top: 12px;
-  left: 50%;
-  transform: translateX(-50%);
+const CurrentExperience = styled.span<CurrentExperienceProps>`
+  ${({ percent }) => css`
+    position: absolute;
+    top: 12px;
+    left: ${percent}%;
+    transform: translateX(-50%);
+  `}
 `
