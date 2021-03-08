@@ -5,23 +5,27 @@ interface CountdownProps {}
 
 export const Countdown: React.FC<CountdownProps> = ({ ...props }) => {
   return (
-    <StyledCountdown {...props}>
-      <Head>
-        <title>Início | move.it</title>
-      </Head>
+    <div>
+      <StyledCountdown {...props}>
+        <Head>
+          <title>Início | move.it</title>
+        </Head>
 
-      <TimeWrapper>
-        <TimeDigit>2</TimeDigit>
-        <TimeDigit>5</TimeDigit>
-      </TimeWrapper>
+        <TimeWrapper>
+          <TimeDigit>2</TimeDigit>
+          <TimeDigit>5</TimeDigit>
+        </TimeWrapper>
 
-      <TimeSeparator>:</TimeSeparator>
+        <TimeSeparator>:</TimeSeparator>
 
-      <TimeWrapper>
-        <TimeDigit>0</TimeDigit>
-        <TimeDigit>0</TimeDigit>
-      </TimeWrapper>
-    </StyledCountdown>
+        <TimeWrapper>
+          <TimeDigit>0</TimeDigit>
+          <TimeDigit>0</TimeDigit>
+        </TimeWrapper>
+      </StyledCountdown>
+
+      <CountdownButton>Iniciar um ciclo</CountdownButton>
+    </div>
   )
 }
 
@@ -70,4 +74,30 @@ const TimeSeparator = styled.span`
 
 const TimeDigit = styled.span`
   flex: 1;
+`
+
+const CountdownButton = styled.button`
+  ${({ theme }) => css`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: background-color 0.2s;
+
+    margin-top: 2rem;
+    width: 100%;
+    height: 5rem;
+
+    border: none;
+    border-radius: 5px;
+    background: ${theme.colors.blue};
+
+    color: ${theme.colors.white};
+    font-size: 1.25rem;
+    font-weight: 600;
+
+    &:hover {
+      background: ${theme.colors.blueDark};
+    }
+  `}
 `
