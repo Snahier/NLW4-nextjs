@@ -1,6 +1,7 @@
 import { useContext } from "react"
 import styled, { css } from "styled-components/macro"
 import { ChallengesContext } from "../contexts/ChallengesContext"
+import { CountdownContext } from "../contexts/CountdownContext"
 
 interface ChallengeBoxProps {}
 
@@ -8,6 +9,17 @@ export const ChallengeBox: React.FC<ChallengeBoxProps> = ({ ...props }) => {
   const { activeChallenge, resetChallenge, completeChallenge } = useContext(
     ChallengesContext
   )
+  const { resetCountdown } = useContext(CountdownContext)
+
+  const handleChallengeSucceeded = () => {
+    completeChallenge()
+    resetCountdown()
+  }
+
+  const handleChallengeFailed = () => {
+    resetChallenge()
+    resetCountdown()
+  }
 
   return (
     <StyledChallengeBox {...props}>
@@ -22,10 +34,10 @@ export const ChallengeBox: React.FC<ChallengeBoxProps> = ({ ...props }) => {
           </main>
 
           <footer>
-            <ChallengeFailedButton onClick={resetChallenge}>
+            <ChallengeFailedButton onClick={handleChallengeFailed}>
               Falhei
             </ChallengeFailedButton>
-            <ChallengeCompleteButton onClick={completeChallenge}>
+            <ChallengeCompleteButton onClick={handleChallengeSucceeded}>
               Completei
             </ChallengeCompleteButton>
           </footer>
