@@ -1,9 +1,18 @@
 import Head from "next/head"
+import { useState } from "react"
 import styled, { css } from "styled-components/macro"
 
 interface CountdownProps {}
 
 export const Countdown: React.FC<CountdownProps> = ({ ...props }) => {
+  const [time, setTime] = useState(25 * 60)
+
+  const minutes = Math.floor(time / 60)
+  const seconds = time % 60
+
+  const [minuteLeft, minuteRight] = String(minutes).padStart(2, "0").split("")
+  const [secondLeft, secondRight] = String(seconds).padStart(2, "0").split("")
+
   return (
     <div>
       <StyledCountdown {...props}>
@@ -12,15 +21,15 @@ export const Countdown: React.FC<CountdownProps> = ({ ...props }) => {
         </Head>
 
         <TimeWrapper>
-          <TimeDigit>2</TimeDigit>
-          <TimeDigit>5</TimeDigit>
+          <TimeDigit>{minuteLeft}</TimeDigit>
+          <TimeDigit>{minuteRight}</TimeDigit>
         </TimeWrapper>
 
         <TimeSeparator>:</TimeSeparator>
 
         <TimeWrapper>
-          <TimeDigit>0</TimeDigit>
-          <TimeDigit>0</TimeDigit>
+          <TimeDigit>{secondLeft}</TimeDigit>
+          <TimeDigit>{secondRight}</TimeDigit>
         </TimeWrapper>
       </StyledCountdown>
 
