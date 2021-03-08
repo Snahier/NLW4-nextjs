@@ -1,3 +1,4 @@
+import Head from "next/head"
 import styled, { css } from "styled-components/macro"
 
 interface CountdownProps {}
@@ -5,6 +6,10 @@ interface CountdownProps {}
 export const Countdown: React.FC<CountdownProps> = ({ ...props }) => {
   return (
     <StyledCountdown {...props}>
+      <Head>
+        <title>Início | move.it</title>
+      </Head>
+
       <TimeWrapper>
         <TimeDigit>2</TimeDigit>
         <TimeDigit>5</TimeDigit>
