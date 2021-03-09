@@ -16,9 +16,17 @@ export const ExperienceBar: React.FC<ExperienceBarProps> = ({ ...props }) => {
     <StyledExperienceBar {...props}>
       <span>0 xp</span>
       <Bar>
-        <BarProgress percent={percentToNextLevel} />
+        <BarProgress
+          style={{
+            width: `${percentToNextLevel}%`,
+          }}
+        />
 
-        <CurrentExperience percent={percentToNextLevel}>
+        <CurrentExperience
+          style={{
+            left: `${percentToNextLevel}%`,
+          }}
+        >
           {currentExperience} xp
         </CurrentExperience>
       </Bar>
@@ -50,13 +58,8 @@ const Bar = styled.div`
   `}
 `
 
-type CurrentExperienceProps = {
-  percent: number
-}
-
-const BarProgress = styled.div<CurrentExperienceProps>`
-  ${({ theme, percent }) => css`
-    width: ${percent}%;
+const BarProgress = styled.div`
+  ${({ theme }) => css`
     height: 4px;
 
     border-radius: 4px;
@@ -64,11 +67,8 @@ const BarProgress = styled.div<CurrentExperienceProps>`
   `}
 `
 
-const CurrentExperience = styled.span<CurrentExperienceProps>`
-  ${({ percent }) => css`
-    position: absolute;
-    top: 12px;
-    left: ${percent}%;
-    transform: translateX(-50%);
-  `}
+const CurrentExperience = styled.span`
+  position: absolute;
+  top: 12px;
+  transform: translateX(-50%);
 `
