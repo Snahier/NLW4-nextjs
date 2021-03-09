@@ -1,6 +1,7 @@
 import Cookies from "js-cookie"
 import { createContext, ReactNode, useEffect, useState } from "react"
 import challenges from "../../challenges.json"
+import { LevelUpModal } from "../components/LevelUpModal"
 
 interface Challenge {
   type: "body" | "eye"
@@ -17,6 +18,7 @@ interface ChallengesContextData {
   startNewChallenge: () => void
   resetChallenge: () => void
   completeChallenge: () => void
+  closeLevelUpModal: () => void
 }
 
 interface ChallengesProviderProps {
@@ -42,10 +44,17 @@ export const ChallengesProvider = ({
   )
   const [activeChallenge, setActiveChallenge] = useState(null)
 
+  const [isLevelUpModalOpen, setIsLevelUpModalOpen] = useState(false)
+
   const experienceFactor = 4
   const experienceToNextLevel = ((level + 1) * experienceFactor) ** 2
 
-  const levelUp = () => setLevel(level + 1)
+  const levelUp = () => {
+    setLevel(level + 1)
+    setIsLevelUpModalOpen(true)
+  }
+
+  const closeLevelUpModal = () => setIsLevelUpModalOpen(false)
 
   const startNewChallenge = () => {
     const randomChallengeIndex = Math.floor(Math.random() * challenges.length)
@@ -104,9 +113,12 @@ export const ChallengesProvider = ({
         startNewChallenge,
         resetChallenge,
         completeChallenge,
+        closeLevelUpModal,
       }}
     >
       {children}
+
+      {isLevelUpModalOpen && <LevelUpModal />}
     </ChallengesContext.Provider>
   )
 }
